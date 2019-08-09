@@ -1,3 +1,5 @@
+[![license](https://img.shields.io/github/license/ShiquanYu/ArduinoLibAutoTestTools)](https://choosealicense.com/licenses/apache-2.0/)
+
 # ArduinoLibAutoTestTools
 Simple test tools for arduino libraries
 
