@@ -55,8 +55,10 @@ for example in "${examples[@]}"; do
 	fi
 done
 if [ $exit_code -gt 0 ]; then
+	echo -e "Compile result:$RED FAIL $DEFAULT"
 	return 1
 else
+	echo -e "Compile result:$GREEN SUCCESS $DEFAULT"
 	return 0
 fi
 
