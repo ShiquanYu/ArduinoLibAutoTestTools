@@ -28,6 +28,7 @@ examples=($(find $PWD -name "*.pde" -o -name "*.ino"))
 echo -e "Compile library: "$YELLOW${PWD##*/}$DEFAULT
 
 title="Switch to ${platform##*=}"
+# show title like"##########title##########"
 title_len=$(expr length "$title")
 hash_num=$(((COLUMNS-title_len)/2))
 if [ $hash_num -gt 40 ]; then
@@ -45,7 +46,7 @@ echo "$platform_stdout"
 for example in "${examples[@]}"; do
 	build_stdout=$(arduino --verify $example 2>&1)
 	if [ $? -eq 0 ]; then
-		echo -e ${example##*/} $GREEN"\xe2\x9c\x93"$DEFAULT		#✓
+		echo -e ${example##*/} $GREEN"\xe2\x9c\x93"$DEFAULT		#✓ ✘
 	else
 		exit_code=1
 		echo -e "$RED=====================ERROR=====================$DEFAULT"
@@ -56,10 +57,10 @@ for example in "${examples[@]}"; do
 done
 if [ $exit_code -gt 0 ]; then
 	echo -e "Compile result:$RED FAIL $DEFAULT"
-	return 1
+	exit 1
 else
 	echo -e "Compile result:$GREEN SUCCESS $DEFAULT"
-	return 0
+	exit 0
 fi
 
 
