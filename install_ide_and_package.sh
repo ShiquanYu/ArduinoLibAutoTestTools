@@ -4,50 +4,50 @@
 GRAY='\033[1;30m'; RED='\033[0;31m'; LRED='\033[1;31m'; GREEN='\033[0;32m'; LGREEN='\033[1;32m'; ORANGE='\033[0;33m'; YELLOW='\033[1;33m'; BLUE='\033[0;34m'; LBLUE='\033[1;34m'; PURPLE='\033[0;35m'; LPURPLE='\033[1;35m'; CYAN='\033[0;36m'; LCYAN='\033[1;36m'; LGRAY='\033[0;37m'; WHITE='\033[1;37m';
 DEFAULT='\e[0m';
 
-# echo -e "\n########################################################################";
-# echo -e "${YELLOW}INSTALLING ARDUINO IDE${DEFAULT}"
-# echo "########################################################################";
+echo -e "\n########################################################################";
+echo -e "${YELLOW}INSTALLING ARDUINO IDE${DEFAULT}"
+echo "########################################################################";
 
-# # if .travis.yml does not set version
-# if [ -z $ARDUINO_IDE_VERSION ]; then
-# export ARDUINO_IDE_VERSION="1.8.9"
-# echo "NOTE: YOUR .TRAVIS.YML DOES NOT SPECIFY ARDUINO IDE VERSION, USING $ARDUINO_IDE_VERSION"
-# fi
+# if .travis.yml does not set version
+if [ -z $ARDUINO_IDE_VERSION ]; then
+export ARDUINO_IDE_VERSION="1.8.9"
+echo "NOTE: YOUR .TRAVIS.YML DOES NOT SPECIFY ARDUINO IDE VERSION, USING $ARDUINO_IDE_VERSION"
+fi
 
-# # if newer version is requested
-# if [ ! -f $HOME/arduino_ide/$ARDUINO_IDE_VERSION ] && [ -f $HOME/arduino_ide/arduino ]; then
-# echo -n "DIFFERENT VERSION OF ARDUINO IDE REQUESTED: "
-# shopt -s extglob
-# cd $HOME/arduino_ide/
-# rm -rf *
-# if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
-# cd $OLDPWD
-# fi
+# if newer version is requested
+if [ ! -f $HOME/arduino_ide/$ARDUINO_IDE_VERSION ] && [ -f $HOME/arduino_ide/arduino ]; then
+echo -n "DIFFERENT VERSION OF ARDUINO IDE REQUESTED: "
+shopt -s extglob
+cd $HOME/arduino_ide/
+rm -rf *
+if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
+cd $OLDPWD
+fi
 
-# # if not already cached, download and install arduino IDE
-# echo -n "ARDUINO IDE STATUS: "
-# if [ ! -f $HOME/arduino_ide/arduino ]; then
-# echo -n "DOWNLOADING: "
-# wget --quiet https://downloads.arduino.cc/arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
-# if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
-# echo -n "UNPACKING ARDUINO IDE: "
-# [ ! -d $HOME/arduino_ide/ ] && mkdir $HOME/arduino_ide
-# tar xf arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz -C $HOME/arduino_ide/ --strip-components=1
-# if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
-# # created a file named with IDE version to mark the IDE version download
-# touch $HOME/arduino_ide/$ARDUINO_IDE_VERSION
-# else
-# echo -n "CACHED: "
-# echo -e """$GREEN""\xe2\x9c\x93"
-# fi
+# if not already cached, download and install arduino IDE
+echo -n "ARDUINO IDE STATUS: "
+if [ ! -f $HOME/arduino_ide/arduino ]; then
+echo -n "DOWNLOADING: "
+wget --quiet https://downloads.arduino.cc/arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz
+if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
+echo -n "UNPACKING ARDUINO IDE: "
+[ ! -d $HOME/arduino_ide/ ] && mkdir $HOME/arduino_ide
+tar xf arduino-$ARDUINO_IDE_VERSION-linux64.tar.xz -C $HOME/arduino_ide/ --strip-components=1
+if [ $? -ne 0 ]; then echo -e """$RED""\xe2\x9c\x96"; else echo -e """$GREEN""\xe2\x9c\x93"; fi
+# created a file named with IDE version to mark the IDE version download
+touch $HOME/arduino_ide/$ARDUINO_IDE_VERSION
+else
+echo -n "CACHED: "
+echo -e """$GREEN""\xe2\x9c\x93"
+fi
 
-# # ===============================Download Arduino Finished=====================================
+# ===============================Download Arduino Finished=====================================
 
-# # link test library folder to the arduino libraries folder
-# ln -s $TRAVIS_BUILD_DIR $HOME/arduino_ide/libraries/Adafruit_Test_Library
+# link test library folder to the arduino libraries folder
+ln -s $TRAVIS_BUILD_DIR $HOME/arduino_ide/libraries/Adafruit_Test_Library
 
-# # add the arduino CLI to our PATH
-# export PATH="$HOME/arduino_ide:$PATH"
+# add the arduino CLI to our PATH
+export PATH="$HOME/arduino_ide:$PATH"
 
 echo -e "\n########################################################################";
 echo -e "${YELLOW}INSTALLING DEPENDENCIES$DEFAULT"
