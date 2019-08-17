@@ -27,7 +27,7 @@ examples=($(find $PWD -name "*.pde" -o -name "*.ino"))
 # done
 echo -e "Compile library: "$YELLOW${PWD##*/}$DEFAULT
 
-title="Switch to ${platform##*=}"
+title="Switch to ${platform##*=}  "
 # show title like"##########title##########"
 title_len=$(expr length "$title")
 hash_num=$(((COLUMNS-title_len)/2))
@@ -38,11 +38,24 @@ hash_str=""
 for i in $(seq 1 $hash_num); do
 	hash_str=$hash_str"#"
 done
-echo -e $hash_str$title$hash_str
+# echo -e $hash_str$title$hash_str
+echo -n $title
 
 platform_stdout=$(arduino --board $platform --save-prefs 2>&1)
 platform_switch=$?
+if [ $platform_switch -ne 0 ]; then
+# heavy X
+echo -e """$RED""✖"$DEFAULT
+echo -e "arduino --board ${platform} --save-prefs 2>&1"
 echo "$platform_stdout"
+exit_code=1
+exit 1
+else
+# heavy checkmark
+echo -e """$GREEN""✓"$DEFAULT
+fi
+
+# echo "$platform_stdout"
 for example in "${examples[@]}"; do
 	build_stdout=$(arduino --verify $example 2>&1)
 	if [ $? -eq 0 ]; then
