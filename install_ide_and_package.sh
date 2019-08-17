@@ -46,6 +46,8 @@ fi
 # link test library folder to the arduino libraries folder
 ln -s $TRAVIS_BUILD_DIR $HOME/arduino_ide/libraries/Arduino_Test_Library
 
+echo ">>> ls HOME/arduino_ide/"
+
 ls $HOME/arduino_ide/
 
 # add the arduino CLI to our PATH
@@ -97,7 +99,7 @@ for i in $*; do
     echo -n "DOWNLOAD PACKAGE: $i "
     DEPENDENCY_OUTPUT=$(arduino --install-boards $package 2>&1)
     # arduino --install-boards $package
-    if [ $? -ne 0 ]; then echo -e "\xe2\x9c\x96 OR CACHED\n$DEFAULT$DEPENDENCY_OUTPUT"; else echo -e """$GREEN""\xe2\x9c\x93$DEFAULT"; fi
+    if [ $? -ne 0 ]; then echo -e $RED"\xe2\x9c\x96 OR CACHED\n$DEFAULT$DEPENDENCY_OUTPUT"; else echo -e """$GREEN""\xe2\x9c\x93$DEFAULT"; fi
 done
 # echo -n "ESP32: "
 # # DEPENDENCY_OUTPUT=$(arduino --install-boards esp32:esp32 2>&1)
